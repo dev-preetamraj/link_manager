@@ -1,1 +1,1 @@
-web: gunicorn projectname.wsgi --preload --log-file -
+web: gunicorn sms_pro.wsgi --preload --log-file -
