@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .dp {
+        padding: 10px 10px 10px 10px;
+    }
+   .dp img{
+    border-radius: 50%;
+    margin-bottom: 10px;
+   }
+</style>
+      <!-- Sidebar Navigation end-->
+      <div class="page-content">
+        <!-- Page Header-->
+        <div class="page-header no-margin-bottom">
+          <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Profile</h2>
+          </div>
+        </div>
+        <!-- Breadcrumb-->
+        <div class="container-fluid">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item active">Profile</li>
+          </ul>
+        </div>
+        <section class="no-padding-top">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- Form Elements -->
+              <div class="col-lg-12">
+                <div class="block">
+                  <div class="title"><strong>Your Profile</strong></div>
+                    <div class="dp">
+                        <img src="{{ profile_obj.profile_pic.url }}" alt="">
+                        <h3>{{request.user.first_name}} {{request.user.last_name}}</h3>
+                    </div> <hr>
+                  <div class="block-body">
+                    <form class="form-horizontal" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">First Name</label>
+                        <div class="col-md-5">
+                          {{user_form.first_name}}
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Last Name</label>
+                        <div class="col-md-5">
+                          {{user_form.last_name}}
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Phone</label>
+                        <div class="col-md-5">
+                            {{profile_form.phone}}
+                            <p>Write with country code (+91xxxxxxxxxx)</p>
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Gender</label>
+                        <div class="col-md-5">
+                            {{profile_form.gender}}
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Profile Picture</label>
+                        <div class="col-md-5">
+                            {{profile_form.profile_pic}}
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <div class="col-sm-9 ml-auto">
+                          <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
+                          <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer class="footer">
+          <div class="footer__block block no-margin-bottom">
+            <div class="container-fluid text-center">
+              <!-- Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+              <p class="no-margin-bottom">2021 &copy; Your company. Design by <a href="https://bootstrapious.com/p/bootstrap-4-dark-admin">Bootstrapious</a>.</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    {% endblock %}

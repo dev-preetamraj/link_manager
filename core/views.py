@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from datetime import date, datetime
 import calendar
 from .models import MeetLink, Profile
-from .forms import RegisterUserForm, UpdateMeeting
+from .forms import RegisterUserForm, UpdateMeeting, UpdateProfileForm, UpdateUserForm
 from django.contrib import messages
 from .decorators import unauthenticated_user
 from django.contrib.auth.decorators import login_required
@@ -139,3 +139,23 @@ def update_meet(request,pk):
         'form': form
     }
     return render(request, 'update_meet.html', context)
+
+@login_required(login_url='login')
+def update_profile(request):
+    profile_obj = Profile.objects.get(user=request.user)
+    profile_form = UpdateProfileForm(instance=profile_obj)
+    user_form = UpdateUserForm(instance=request.user)
+    if request.method == 'POST':
+        profile_form = UpdateProfileForm(
+            request.POST, request.FILES, instance=profile_obj)
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        if profile_form.is_valid() and user_form.is_valid():
+            profile_form.save()
+            user_form.save()
+            return redirect('update_profile')
+    context = {
+        'profile_obj': profile_obj,
+        'profile_form': profile_form,
+        'user_form': user_form
+    }
+    return render(request, 'update_profile.html', context)
