@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g1z@b#fj91b=^xg*rzuyy4ts^gjb@4pm&8y6yi5f#e1kh&wo87'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -70,11 +70,11 @@ WSGI_APPLICATION = 'sms_pro.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'derlgakp2p9m4b',
-        'HOST': 'ec2-3-234-22-132.compute-1.amazonaws.com',
-        'PORT': 5432,
-        'USER': 'eyzesyjolgxgbl',
-        'PASSWORD': 'bc2b9983dd84c495d73538af7f46efa18b64bf34e801daf1340a0c44cedb9f7d'
+        'NAME': os.getenv('db_name'),
+        'HOST': os.getenv('host'),
+        'PORT': os.getenv('port'),
+        'USER': os.getenv('user'),
+        'PASSWORD': os.getenv('password')
     }
 }
 
