@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+      <!-- Sidebar Navigation end-->
+      <div class="page-content">
+        <!-- Page Header-->
+        <div class="page-header no-margin-bottom">
+          <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Basic forms</h2>
+          </div>
+        </div>
+        <!-- Breadcrumb-->
+        <div class="container-fluid">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Create Meet</li>
+          </ul>
+        </div>
+        <section class="no-padding-top">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- Form Elements -->
+              <div class="col-lg-12">
+                <div class="block">
+                  <div class="title"><strong>Create Meet Here...</strong></div>
+                  <div class="block-body">
+                    <form class="form-horizontal" method="POST">
+                      {% csrf_token %}
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Course Name</label>
+                        <div class="col-md-5">
+                          <input type="text" name="course_name" class="form-control">
+                        </div>
+                      </div>
+                      <div class="line"></div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Meet Link</label>
+                        <div class="col-md-5">
+                          <input type="text" name="meet_link" placeholder="Enter full URL..." class="form-control">
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Start Time</label>
+                        <div class="col-md-5">
+                          <input type="time" name="start_time"  class="form-control">
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">End Time</label>
+                        <div class="col-md-5">
+                          <input type="time" name="end_time"  class="form-control">
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Day</label>
+                        <div class="col-md-5">
+                          <select name="day" class="form-control mb-3 mb-3">
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                            <option>Saturday</option>
+                            <option>Sunday</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="line"></div>
+                      <div class="form-group row">
+                        <div class="col-sm-9 ml-auto">
+                          <button type="submit" class="btn btn-secondary">Cancel</button>
+                          <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer class="footer">
+          <div class="footer__block block no-margin-bottom">
+            <div class="container-fluid text-center">
+              <!-- Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+              <p class="no-margin-bottom">2021 &copy; Your company. Design by <a href="https://bootstrapious.com/p/bootstrap-4-dark-admin">Bootstrapious</a>.</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    {% endblock %}

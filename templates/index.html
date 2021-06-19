@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  .live {
+    background-color: greenyellow;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+  }
+  .dboard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+</style>
+
+      <div class="page-content">
+        <div class="page-header">
+          <div class="container-fluid dboard">
+            <h2 class="h5 no-margin-bottom mr-5">Dashboard</h2>
+            <span class="ml-5 mr-3">{{day}}, {{date}}</span>
+            <div id="time"></div>
+          </div>
+        </div>
+        <section class="no-padding-top no-padding-bottom">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-3 col-sm-6">
+                <div class="statistic-block block">
+                  <div class="progress-details d-flex align-items-end justify-content-between">
+                    <div class="title">
+                      <div class="icon"><i class="icon-user-1"></i></div><strong>Total Meets</strong>
+                    </div>
+                    <div class="number dashtext-1">{{total_meets_count}}</div>
+                  </div>
+                  <div class="progress progress-template">
+                    <div role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-1"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="statistic-block block">
+                  <div class="progress-details d-flex align-items-end justify-content-between">
+                    <div class="title">
+                      <div class="icon"><i class="icon-contract"></i></div><strong>Total Meets Today</strong>
+                    </div>
+                    <div class="number dashtext-2">{{total_meets_today}}</div>
+                  </div>
+                  <div class="progress progress-template">
+                    <div role="progressbar" style="width: {{meetings_width}}%" aria-valuenow="{{meetings_width}}" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-2"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="statistic-block block">
+                  <div class="progress-details d-flex align-items-end justify-content-between">
+                    <div class="title">
+                      <div class="icon"><i class="icon-writing-whiteboard"></i></div><strong>Live Meets</strong>
+                    </div>
+                    <div class="number dashtext-4">{{live_meet_count}}</div>
+                  </div>
+                  <div class="progress progress-template">
+                    <div role="progressbar" style="width: {{live_meetings_width}}%" aria-valuenow="{{live_meetings_width}}" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-4"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="no-padding-bottom">
+          <div class="container-fluid">
+
+            <h3>All Meets</h3><span>Click on course title to update or delete Meet...</span> <hr>
+            <div class="row">
+
+              
+              {% if total_meets_count > 0 %}
+              {% for meeting in total_meets %}
+              <div class="col-lg-4">
+                <div class="user-block block text-center">
+                  
+                  <a href="{% url 'update_meet' meeting.pk %}" class="user-title">
+                    <h3 class="h5">{{meeting.course_name}}</h3><span>{{meeting.start_time}} - {{meeting.end_time}}</span></a>
+                  <div class="contributions">
+                    <a href="https://{{meeting.meet_link}}/">{{meeting.meet_link}}</a>
+                  </div>
+                  
+                  
+                </div>
+              </div>
+              {% endfor %}
+              {% else %}
+              <div class="col-lg-4">
+                <p>No meets registered...</p>
+              </div>
+              {% endif %}
+                
+                </div>
+              
+
+
+            <h3>Today's Meets</h3> <hr>
+            <div class="row">
+
+              
+              {% if total_meets_today > 0 %}
+              {% for meeting in meetings %}
+              <div class="col-lg-4">
+                <div class="user-block block text-center">
+                  
+                  <a href="#" class="user-title">
+                    <h3 class="h5">{{meeting.course_name}}</h3><span>{{meeting.start_time}} - {{meeting.end_time}}</span></a>
+                  <div class="contributions"><a href="https://{{meeting.meet_link}}/">{{meeting.meet_link}}</a></div>
+                  
+                </div>
+              </div>
+              {% endfor %}
+              {% else %}
+              <div class="col-lg-4">
+                <p>No meets today...</p>
+              </div>
+              {% endif %}
+                
+                </div>
+
+                <h3>Live Meets <span class="live"></span></h3> <hr>
+            <div class="row">
+
+              
+              {% if live_meet_count > 0 %}
+              {% for meeting in live_meets %}
+              <div class="col-lg-4">
+                <div class="user-block block text-center">
+                  
+                  <a href="#" class="user-title">
+                    <h3 class="h5">{{meeting.course_name}}</h3><span>{{meeting.start_time}} - {{meeting.end_time}}</span></a>
+                  <div class="contributions"><a href="https://{{meeting.meet_link}}/">{{meeting.meet_link}}</a></div>
+                  
+                </div>
+              </div>
+              {% endfor %}
+              {% else %}
+                <div class="col-lg-4">
+                  <p>No live meets currently...</p>
+                </div>
+              {% endif %}
+                
+                </div>
+
+              </div>
+          </section>
+
+          <script>
+            setInterval(displayTime, 500);
+            function displayTime() {
+              var time = new Date;
+              var hrs = time.getHours();
+              var mins = time.getMinutes();
+              var sec = time.getSeconds();
+              if(hrs>12){
+                hrs = hrs - 12;
+              }
+              if(hrs == 12) {
+                hrs = 12;
+              }
+              if(hrs<10){
+                hrs = '0'+hrs;
+              }
+              if(mins<10){
+                mins = '0'+mins;
+              }
+              if(sec<10){
+                sec = '0'+sec;
+              }
+              document.getElementById('time').innerHTML = 'Time: ' +  hrs + ':' + mins + ':' + sec;
+            }
+          </script>
+{% endblock %}

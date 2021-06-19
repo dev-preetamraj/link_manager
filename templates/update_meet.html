@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .message {
+        background-color: rgb(0, 0, 0);
+        align-items: center;
+        text-align: center;
+        width: 50%;
+        margin-left: 25%;
+    }
+    .message strong {
+        color: #fff;
+    }
+</style>
+      <!-- Sidebar Navigation end-->
+      <div class="page-content">
+        <!-- Page Header-->
+        <div class="page-header no-margin-bottom">
+          <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Basic forms</h2>
+          </div>
+        </div>
+        <!-- Breadcrumb-->
+        <div class="container-fluid">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Create Meet</li>
+          </ul>
+        </div>
+        <section class="no-padding-top">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- Form Elements -->
+              <div class="col-lg-12">
+                <div class="block">
+                  <div class="title"><strong>Create Meet Here...</strong></div>
+                  
+                  {% if messages %}
+                      {% for message in messages %}
+                      <div class="title message"><strong>{{message}}</strong></div>
+                      {% endfor %}
+                  {% endif %}
+                      
+                  <div class="block-body">
+                    <form class="form-horizontal" method="POST">
+                      {% csrf_token %}
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Course Name</label>
+                        <div class="col-md-5">
+                          {{form.course_name}}
+                        </div>
+                      </div>
+                      <div class="line"></div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Meet Link</label>
+                        <div class="col-md-5">
+                          {{form.meet_link}}
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Start Time</label>
+                        <div class="col-md-5">
+                            {{form.start_time}}
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">End Time</label>
+                        <div class="col-md-5">
+                            {{form.end_time}}
+                        </div>
+                      </div>
+                      <div class="line"></div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Day</label>
+                        <div class="col-md-5">
+                          {{form.day}}
+                        </div>
+                      </div>
+                      <div class="line"></div>
+                      <div class="form-group row">
+                        <div class="col-sm-9 ml-auto">
+                          <button type="submit" class="btn btn-secondary">Cancel</button>
+                          <a href="{% url 'delete_meet' meet.pk %}" class="btn btn-danger">Delete</a>
+                          <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer class="footer">
+          <div class="footer__block block no-margin-bottom">
+            <div class="container-fluid text-center">
+              <!-- Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+              <p class="no-margin-bottom">2021 &copy; Your company. Design by <a href="https://bootstrapious.com/p/bootstrap-4-dark-admin">Bootstrapious</a>.</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  
+    {% endblock %}
