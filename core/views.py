@@ -3,12 +3,23 @@ from django.shortcuts import redirect, render
 from datetime import date, datetime
 import calendar
 from .models import MeetLink, Profile
-from .task import sleepy, show_live_meeting
 from .forms import RegisterUserForm, UpdateMeeting
 from django.contrib import messages
 from .decorators import unauthenticated_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+
+def show_live_meeting(user):
+    day = calendar.day_name[date.today().weekday()]
+    meets = MeetLink.objects.filter(user = user,day=day)
+    live_meet = []
+    for meet in meets:
+        current_time = datetime.now().time()
+        start_time = meet.start_time
+        end_time = meet.end_time
+        if current_time>=start_time and current_time<=end_time:
+            live_meet.append(meet)
+    return live_meet
 
 @unauthenticated_user
 def register(request):
