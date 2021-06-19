@@ -62,6 +62,9 @@
 			box-shadow: none !important;
 			outline: 0px !important;
 		}
+		.warning {
+			background-color: #f7ba5b;
+		}
 
 	</style>
 
@@ -125,7 +128,17 @@
 				   		</div>
 					</form>
 				</div>
-		
+				
+				{% if messages %}
+					{% for message in messages %}
+					<div class="mt-4">
+						<div class="d-flex justify-content-center links">
+							<span class="warning">{{message}}</span>
+						</div>
+					</div>
+					{% endfor %}
+				{% endif %}
+				
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>

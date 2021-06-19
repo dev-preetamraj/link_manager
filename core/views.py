@@ -8,6 +8,7 @@ from django.contrib import messages
 from .decorators import unauthenticated_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 
 def show_live_meeting(user):
     day = calendar.day_name[date.today().weekday()]
@@ -32,9 +33,10 @@ def register(request):
             profile = Profile.objects.get(user = form_save)
             profile.gender = gender
             profile.save()
-            return redirect('login')
+            login(request, form_save)
+            return redirect('index')
         else:
-            messages.error(request, 'Something going wrong! Fill again to get registered.')
+            messages.error(request, 'Password must be 8 characters long alpha-numeric OR try different username')
             return redirect('register')
     context = {
         'form': form
