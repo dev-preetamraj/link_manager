@@ -57,9 +57,11 @@ def index(request):
     live_meet = show_live_meeting(request.user)
     todays_date = date.today()
     current_time = datetime.now().strftime('%H:%M:%S')
-
-    meetings_width = (meetings.count()/total_meets.count())*100
-    live_meetings_width = (len(live_meet)/total_meets.count())*100
+    meetings_width = 0
+    live_meetings_width = 0
+    if(total_meets.count() != 0):
+        meetings_width = (meetings.count()/total_meets.count())*100
+        live_meetings_width = (len(live_meet)/total_meets.count())*100
 
     
     context = {
